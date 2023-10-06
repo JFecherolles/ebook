@@ -1,0 +1,12 @@
+{
+    "name": "jerome/ebook",
+    "description": "gestionnaire de bibliothèque",
+        "require": {
+            
+            "altorouter/altorouter": "^2.0"
+        },
+        "autoload": {
+            "psr-4": {"Ebook\\": "app/"}
+        }
+    
+}
