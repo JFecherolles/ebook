@@ -14,14 +14,14 @@
 <body>
     
     <header class="">
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-md bg-light">
             <div class="container-fluid">
               <a class="navbar-brand" href="<?= $router->generate('home') ?>">Ebook</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav text-center">
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="<?= $router->generate('home') ?>">Acceuil</a>
                   </li>

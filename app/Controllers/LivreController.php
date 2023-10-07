@@ -1,9 +1,9 @@
 <?php
 
-namespace Ebook\controller;
-use Ebook\controller\CoreController;
+namespace Ebook\Controllers;
+use Ebook\Controllers\CoreController;
 use Ebook\utils\Database;
-use Ebook\model\Livres;
+use Ebook\Models\Livres;
 
 class LivreController extends CoreController
 {

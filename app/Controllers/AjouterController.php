@@ -1,8 +1,8 @@
 <?php
 
-namespace Ebook\controller;
+namespace Ebook\Controllers;
 
-use Ebook\model\Livres;
+use Ebook\Models\Livres;
 
 class AjouterController extends CoreController
 {

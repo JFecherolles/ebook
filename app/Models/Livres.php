@@ -1,9 +1,9 @@
 <?php
 
-namespace Ebook\model;
+namespace Ebook\models;
 
 use Ebook\utils\Database;
-use Ebook\controller\CoreController;
+use Ebook\Controller\CoreController;
 use PDO;
 
 class Livres
@@ -13,7 +13,6 @@ class Livres
     private $auteurNom;
     private $auteurPrenom;
     private $Titre;
-    private $AnneeAchat;
     private $id_user;
 
     
@@ -87,26 +86,6 @@ class Livres
     }
 
     /**
-     * Get the value of anneeAchat
-     */ 
-    public function getAnneeAchat()
-    {
-        return $this->AnneeAchat;
-    }
-
-    /**
-     * Set the value of anneeAchat
-     *
-     * @return  self
-     */ 
-    public function setAnneeAchat($AnneeAchat)
-    {
-        $this->AnneeAchat = $AnneeAchat;
-
-        return $this;
-    }
-
-    /**
      * Get the value of id_user
      */ 
     public function getId_user()
@@ -132,10 +111,10 @@ class Livres
         $sql = "SELECT * FROM livres WHERE id = :id";
 
         $pdoStatement = $db->prepare($sql);
-        $pdoStatement -> bindParam('id' , $id);
+        $pdoStatement -> bindParam(':id' , $id);
         $pdoStatement -> execute();
 
-        $result = $pdoStatement->fetchObject('Ebook\model\Livres');
+        $result = $pdoStatement->fetchObject('Ebook\Models\Livres');
 
         return $result;
 
@@ -149,7 +128,7 @@ class Livres
 
         $pdoStatement = $db->query($sql);
 
-        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'Ebook\model\Livres');
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'Ebook\Models\Livres');
 
         return $results;
 
@@ -161,10 +140,10 @@ class Livres
         $sql = "UPDATE livres SET auteurNom = :auteurNom, auteurPrenom = :auteurPrenom, Titre = :Titre WHERE id = :id";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('auteurNom' , $this->auteurNom);
-        $pdoStatement->bindParam('auteurPrenom' , $this->auteurPrenom);
-        $pdoStatement->bindParam('Titre' , $this->Titre);
-        $pdoStatement->bindParam('id' , $this->id);
+        $pdoStatement->bindParam(':auteurNom' , $this->auteurNom);
+        $pdoStatement->bindParam(':auteurPrenom' , $this->auteurPrenom);
+        $pdoStatement->bindParam(':Titre' , $this->Titre);
+        $pdoStatement->bindParam(':id' , $this->id);
 
         $pdoStatement->execute();
     }
@@ -175,10 +154,10 @@ class Livres
         $sql = "INSERT INTO livres (auteurNom , auteurPrenom , Titre, id_user) VALUES (:auteurNom, :auteurPrenom, :Titre, :id_user)";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('auteurNom' , $this->auteurNom);
-        $pdoStatement->bindParam('auteurPrenom' , $this->auteurPrenom);
-        $pdoStatement->bindParam('Titre' , $this->Titre);
-        $pdoStatement->bindParam('id_user' , $id_user);
+        $pdoStatement->bindParam(':auteurNom' , $this->auteurNom);
+        $pdoStatement->bindParam(':auteurPrenom' , $this->auteurPrenom);
+        $pdoStatement->bindParam(':Titre' , $this->Titre);
+        $pdoStatement->bindParam(':id_user' , $id_user);
 
         $success = $pdoStatement->execute();
     }
@@ -189,7 +168,7 @@ class Livres
         $sql = "DELETE FROM livres WHERE id=:id";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('id' , $this->id);
+        $pdoStatement->bindParam(':id' , $this->id);
 
         $success = $pdoStatement->execute();
 
