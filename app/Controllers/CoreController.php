@@ -16,11 +16,8 @@ class CoreController
 
         // la route dont on souhaite vérifier l'autorisation
         // donc la route demandée par la requête HTTP
-        // se trouve-t-elle dans la l'ACL ?
         // cette route se trouve dans le $match d'Altorouter
         $routeName = $match['name'];
-        // dump($routeName); // main-home
-
 
         // vérification des tokens CSRF sur *les pages nécessaires*
         $csrfTokenRoutes = [
@@ -58,46 +55,6 @@ class CoreController
         unset($_SESSION['csrfToken']);
     }
 
-    /**
-     * Méthode qui vérifie si le user a la permission d'accéder ou non à la page demandée
-     * 
-     * @param array $authorizedRoles Les rôles autorisés
-     */
-    protected function checkAuthorization($authorizedRoles = [])
-    {
-        // un user doit être connecté
-        if (isset($_SESSION['userObject'])) {
-            // on récupère le user dans la session
-            $user = $_SESSION['userObject'];
-            // on récupère son rôle
-            $userRole = $user->getRole(); // ex. admin
-            // son rôle fait-il partie des rôles autorisés (reçus en argument)
-            // par ex. $roles = ['catalog-manager', 'admin'];
-            // @see https://www.php.net/manual/fr/function.in-array.php
-            if (in_array($userRole, $authorizedRoles)) {
-                // si oui => return true;
-                // on sort de la fonction checkAuthorization() et on retourne à "l'appelant"
-                return true;
-            }
-            // si non => 403 Forbidden
-            $errorController = new ErrorController();
-            $errorController->error404();
-            exit;
-        }
-
-        // si non, on le redirige vers le login
-        global $router;
-        header('Location: ' . $router->generate('user-login'));
-        exit;
-    }
-
-    /**
-     * Méthode permettant d'afficher du code HTML en se basant sur les views
-     *
-     * @param string $viewName Nom du fichier de vue
-     * @param array $viewData Tableau des données à transmettre aux vues
-     * @return void
-     */
     protected function show(string $viewName, $viewData = [])
     {
         // On globalise $router car on ne sait pas faire mieux pour l'instant
@@ -120,7 +77,6 @@ class CoreController
         // @see https://www.php.net/manual/en/function.extract.php
         extract($viewData);
         // => la variable $currentPage existe désormais, et sa valeur est $viewName
-        // => la variable $assetsBaseUri existe désormais, et sa valeur est $_SERVER['BASE_URI'] . '/assets/'
         // => la variable $baseUri existe désormais, et sa valeur est $_SERVER['BASE_URI']
         // => il en va de même pour chaque élément du tableau
 

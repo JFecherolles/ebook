@@ -6,6 +6,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Prénom</th>
+                <th scope="col">Mot de passe</th>
                 
             </tr>
         </thead>
@@ -15,6 +16,7 @@
                 <tr>
                     <th scope="row"><?= $user->getId(); ?></th>
                     <td><?= $user->getEmail(); ?></td>
+                    <td><?= $user->getPassword(); ?></td>
                     
                     <td class="text-end">
                         <a href="<?php // $router->generate('user-edit', ['id' => $user->getId()]); 

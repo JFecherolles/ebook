@@ -111,8 +111,6 @@ class UserController extends CoreController
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // dump($name, $subtitle, $picture);
-
         // on créé un nouvel objet User prêt à être sauvegardé
         $user = new AppUser();
         // dump($category);
@@ -120,9 +118,6 @@ class UserController extends CoreController
         // on alimente cet objet avec les donneés de la requête (on remplit ses propriétés)
         $user->setEmail($email);
         $user->setPassword($password);
-
-        // VALIDATION DES DONNÉES
-        // @see https://github.com/O-clock-Nazca/S06-E02-atelier-ajout-DB/blob/master/mega_bonus.md
 
         // on créé un tableau pour y ajouter les erreurs éventuelles
         $errorList = [];

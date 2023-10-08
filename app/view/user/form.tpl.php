@@ -1,7 +1,19 @@
-<?php // l'URL étant la même que pour afficher le form, pas besoin d'action, mais si besoin on peut générer l'URL avec le routeur 
+<?php 
 ?>
 
 <form method="POST" class="mt-3">
+
+    <!-- Affichage des erreurs -->
+    <?php if (!empty($errorList)) : ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach ($errorList as $error) : ?>
+                    <li><?= $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" name="email" id="email" placeholder="ex. robert@dupont.fr" value="<?= $user->getEmail() ?? '' ?>">

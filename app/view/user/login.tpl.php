@@ -2,7 +2,6 @@
 
     <h2>Connexion</h2>
 
-    <!-- action vide, même chemin /user/login -->
     <form action="" method="POST" class="mt-5">
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -14,6 +13,7 @@
         </div>
         <div>
             <button type="submit" class="btn btn-primary">Connexion</button>
+            <a href="<?= $router->generate('user-add') ?>" class="btn btn-success">S'inscrire</a>
         </div>
     </form>
 </div>
