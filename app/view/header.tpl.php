@@ -24,7 +24,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="<?= $router->generate('home') ?>">Acceuil</a>
+              <a class="nav-link active" aria-current="page" href="<?= $router->generate('livres') ?>">Acceuil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link btn btn-warning" href="<?= $router->generate("ajouter") ?>" data-bs-target="#ModalAjout">Ajouter</a>

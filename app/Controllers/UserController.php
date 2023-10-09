@@ -50,7 +50,7 @@ class UserController extends CoreController
                 $_SESSION['userObject'] = $appUser;
                 // - on va échanger un cookie de session entre le client et le serveur
                 // - on redirige vers la home
-                header('Location:' . $_SERVER['BASE_URI'] . '/');
+                header('Location:' . $_SERVER['BASE_URI'] . '/livres');
                 exit;
             }
         }
@@ -161,7 +161,7 @@ class UserController extends CoreController
             // vérifiez si l'insertion a réussi
             if ($success) {
                 // si l'insertion a réussi, redirigez l'utilisateur vers la page d'accueil
-                header('Location:' . $_SERVER['BASE_URI'] . '/');
+                header('Location:' . $_SERVER['BASE_URI'] . '/livres');
                 exit;
             } else {
                 // si l'insertion a échoué, ajoutez un message d'erreur et réaffichez le formulaire

@@ -9,11 +9,18 @@ class MainController extends CoreController
     
     public function home() {
         
+        
+        $this->show('index');
+
+    }
+
+    public function livres() {
+        
         $livresMod = new Livres();
         $affLivres = $livresMod->findAll();
 
 
-        $this->show('index', ['listLivre' => $affLivres]);
+        $this->show('livres', ['listLivre' => $affLivres]);
 
     }
 

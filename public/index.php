@@ -4,7 +4,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-
 //Altorouteur
 
 // on instancie la classe AltoRouter
@@ -22,6 +21,14 @@ $router->map(
         'controller' => 'Ebook\Controllers\MainController'
     ],
     'home'
+);
+$router->map(
+    'GET', '/livres',
+    [
+        'action' => 'livres',
+        'controller' => 'Ebook\Controllers\MainController'
+    ],
+    'livres'
 );
 
 $router->map(
@@ -124,7 +131,7 @@ $router->map(
 $match = $router->match();
 
 // pour debug : 
-// dd($match);
+// var_dump($match);
 
 // si match = true, la route existe
 if($match) {

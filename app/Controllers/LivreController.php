@@ -1,12 +1,24 @@
 <?php
 
 namespace Ebook\Controllers;
+
 use Ebook\Controllers\CoreController;
 use Ebook\utils\Database;
 use Ebook\Models\Livres;
 
 class LivreController extends CoreController
 {
+
+    public function livres()
+    {
+
+        $livresMod = new Livres();
+        $affLivres = $livresMod->findAll();
+
+
+        $this->show('livres', ['listLivre' => $affLivres]);
+    }
+
     public function update()
     {
         $id = $_POST['id'];
@@ -19,12 +31,12 @@ class LivreController extends CoreController
         $updateBook->setAuteurNom($auteurNom);
         $updateBook->setAuteurPrenom($auteurPrenom);
         $updateBook->setTitre($titre);
-        
-        $succes = $updateBook->update();
+
+        $success = $updateBook->update();
 
         $viewData['listLivre'] = Livres::findAll();
 
-        $this->show('index', $viewData);
+        $this->show('livres', $viewData);
         //header('Location: index');
 
     }
@@ -36,7 +48,8 @@ class LivreController extends CoreController
 
         $delete->delete();
 
-        header('Location:'.$_SERVER['BASE_URI'].'/');
+        header('Location:' . $_SERVER['BASE_URI'] . '/livres');
     }
+
 
 }

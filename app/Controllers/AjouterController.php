@@ -8,9 +8,7 @@ class AjouterController extends CoreController
 {
     public function ajouter()
     {
-        // Si le formulaire est soumis
-        // $_SERVER c est une variable superglobale qui contient des informations sur les en-têtes, 
-        // chemins et emplacements du script. Les entrées de cette table sont créées par le serveur web et ne doivent pas être modifiées par le programme.
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Récupérer les données du formulaire
