@@ -29,7 +29,7 @@ class AjouterController extends CoreController
 
             // Rediriger vers la liste des livres
             // header('Location: http://localhost/Ebook/public/');
-            header('Location:'.$_SERVER['BASE_URI'].'/');
+            header('Location:'.$_SERVER['BASE_URI'].'/livres');
             exit;
         }
 

@@ -4,60 +4,44 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-//Altorouteur
-
 // on instancie la classe AltoRouter
 $router = new AltoRouter();
 
-// on doit dire à AltoRouter dans quel dossier se trouve notre app
-// pour qu'il puisse "différencier" la route demandée par le visiteur du dossier dans lequel se trouve notre app
+// on doit dire à Altorouter dans quel dossier se trouve notre app
+// pour qu'il puisse "differencier" les routes demandées par l'utilisateur du dossier dans leqquel se trouve notre app
 $router->setBasePath($_SERVER['BASE_URI']);
 
-// on map nos routes !
-$router->map(
-    'GET', '/',
-    [
-        'action' => 'home',
-        'controller' => 'Ebook\Controllers\MainController'
-    ],
-    'home'
-);
-$router->map(
-    'GET', '/livres',
-    [
-        'action' => 'livres',
-        'controller' => 'Ebook\Controllers\MainController'
-    ],
-    'livres'
-);
+// on map nos routes
+// Page d'accueil
+$router->map('GET', '/',[
+    'action' => 'home',
+    'controller' => 'Ebook\Controllers\MainController'
+], 'home');
 
-$router->map(
-    'GET', '/ajouter',
-    [
-        'action' => 'ajouter',
-        'controller' => 'Ebook\Controllers\AjouterController',
-    ],
-    'ajouter'
-);
+$router->map('GET', '/livres',[
+    'action' => 'livres',
+    'controller' => 'Ebook\Controllers\MainController'
+], 'livres');
 
-$router->map(
-    'POST', '/',
-    [
-        'action' => 'update',
-        'controller' => 'Ebook\Controllers\LivreController',
-    ],
-    'modification'
-);
+$router->map('GET', '/ajouter', [
+    'action' => 'ajouter',
+    'controller' => 'Ebook\Controllers\AjouterController'
+], 'ajouter');
 
-$router->map(
-    'POST', 
-    '/supprDb',
-    [
-        'action' => 'delete',
-        'controller' => 'Ebook\Controllers\LivreController',
-    ],
-    'suppression'
-);
+$router->map('POST', '/ajouter', [
+    'action' => 'ajouter',
+    'controller' => 'Ebook\Controllers\AjouterController'
+], 'ajouter_post');
+
+$router->map('POST', '/', [
+    'action' => 'update',
+    'controller' => 'Ebook\Controllers\LivreController'
+], 'modification');
+
+$router->map('POST', '/supprDb', [
+    'action' => 'delete',
+    'controller' => 'Ebook\Controllers\LivreController'
+], 'suppression');
 
 $router->map(
     'GET',
@@ -127,11 +111,9 @@ $router->map(
     'user-create'
 );
 
+
 // on "match" la requête actuelle avec nos routes enregistrées précédemment
 $match = $router->match();
-
-// pour debug : 
-// var_dump($match);
 
 // si match = true, la route existe
 if($match) {
@@ -140,12 +122,12 @@ if($match) {
     // sauf que ce coup-ci, on le fait grâce à AltoRouter !
     $controllerToInstantiate = $match['target']['controller'];
     $methodToCall = $match['target']['action'];
-    
+
     // dispatcheur :
     $controller = new $controllerToInstantiate();
     // on appelle notre méthode, et on lui envoie les paramètres d'URL
     $controller->$methodToCall($match['params']);
-    
+
 } else {
     // 404, la route existe pas
     $controller = new Ebook\Controllers\ErrorController();
@@ -153,3 +135,5 @@ if($match) {
 }
 
 //Fin altorouteur
+
+?>
