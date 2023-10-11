@@ -111,7 +111,7 @@ class Livres
         $sql = "SELECT * FROM livres WHERE id = :id";
 
         $pdoStatement = $db->prepare($sql);
-        $pdoStatement -> bindParam('id' , $id);
+        $pdoStatement -> bindParam(':id' , $id);
         $pdoStatement -> execute();
 
         $result = $pdoStatement->fetchObject('Ebook\Models\Livres');
@@ -140,10 +140,10 @@ class Livres
         $sql = "UPDATE livres SET auteurNom = :auteurNom, auteurPrenom = :auteurPrenom, Titre = :Titre WHERE id = :id";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('auteurNom' , $this->auteurNom);
-        $pdoStatement->bindParam('auteurPrenom' , $this->auteurPrenom);
-        $pdoStatement->bindParam('Titre' , $this->Titre);
-        $pdoStatement->bindParam('id' , $this->id);
+        $pdoStatement->bindParam(':auteurNom' , $this->auteurNom);
+        $pdoStatement->bindParam(':auteurPrenom' , $this->auteurPrenom);
+        $pdoStatement->bindParam(':Titre' , $this->Titre);
+        $pdoStatement->bindParam(':id' , $this->id);
 
         $pdoStatement->execute();
     }
@@ -154,10 +154,10 @@ class Livres
         $sql = "INSERT INTO livres (auteurNom , auteurPrenom , Titre, id_user) VALUES (:auteurNom, :auteurPrenom, :Titre, :id_user)";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('auteurNom' , $this->auteurNom);
-        $pdoStatement->bindParam('auteurPrenom' , $this->auteurPrenom);
-        $pdoStatement->bindParam('Titre' , $this->Titre);
-        $pdoStatement->bindParam('id_user' , $id_user);
+        $pdoStatement->bindParam(':auteurNom' , $this->auteurNom);
+        $pdoStatement->bindParam(':auteurPrenom' , $this->auteurPrenom);
+        $pdoStatement->bindParam(':Titre' , $this->Titre);
+        $pdoStatement->bindParam(':id_user' , $id_user);
 
         $success = $pdoStatement->execute();
     }
@@ -168,7 +168,7 @@ class Livres
         $sql = "DELETE FROM livres WHERE id=:id";
         $pdoStatement = $db->prepare($sql);
 
-        $pdoStatement->bindParam('id' , $this->id);
+        $pdoStatement->bindParam(':id' , $this->id);
 
         $success = $pdoStatement->execute();
 

@@ -2,8 +2,6 @@
 
 namespace Ebook\Controllers;
 
-use Ebook\Controllers\CoreController;
-
 use Ebook\Models\AppUser;
 
 class UserController extends CoreController
@@ -27,7 +25,16 @@ class UserController extends CoreController
 
         // - on va chercher le user via son identifiant
         $appUser = AppUser::findByEmail($email);
+        // on récupère l'e-mail et le mot de passe qui vient du form
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        // - on va chercher le user via son identifiant
+        $appUser = AppUser::findByEmail($email);
         // dump($appUser);
+
+        
+        // 0fe20a92de57999bfacc69eb5a0c4f7776d816f659e4c6199842a43c24de939c
 
         // - cas 1 : user non trouvé => erreur sur le form
         if ($appUser === false) {
@@ -42,7 +49,6 @@ class UserController extends CoreController
                 echo 'Le mot de passe ne correspond pas.';
             } else {
                 // - cas 2 : correspond !
-                //echo 'Le mot de passe correspond.';
                 // - on le "connecte" au serveur via la session
                 // "userId" : l'id de l'utilisateur connecté
                 $_SESSION['userId'] = $appUser->getId();
@@ -80,6 +86,7 @@ class UserController extends CoreController
     {
         // nos utilisateurs
         $users = AppUser::findAll();
+        // dd($users);
 
         // on génère la vue
         $this->show('user/list', [
@@ -94,6 +101,7 @@ class UserController extends CoreController
     {
         // on crée un objet dont les propriétés sont vides
         $user = new AppUser();
+        // dump($user);
 
         // on génère la vue
         $this->show('user/add', [
@@ -101,8 +109,12 @@ class UserController extends CoreController
         ]);
     }
 
+    /**
+     * Traitement ajout catégorie en POST (le C du CRUD)
+     */
     public function create()
     {
+        // dd($_POST);
 
         // on récupère les données dans des variables
         // on utilise l'opérateur de coalescence nulle ??
@@ -118,6 +130,10 @@ class UserController extends CoreController
         // on alimente cet objet avec les donneés de la requête (on remplit ses propriétés)
         $user->setEmail($email);
         $user->setPassword($password);
+        // dd($user);
+
+        // VALIDATION DES DONNÉES
+        // @see https://github.com/O-clock-Nazca/S06-E02-atelier-ajout-DB/blob/master/mega_bonus.md
 
         // on créé un tableau pour y ajouter les erreurs éventuelles
         $errorList = [];
@@ -147,35 +163,42 @@ class UserController extends CoreController
             $errorList[] = "Le mot de passe doit contenir les caractères démandés.";
         }
 
+        // on vérifie si on a rencontré une erreur ou non
         if (empty($errorList)) {
-            // Hacher le mot de passe
+            // si le tableau errorList est vide, ça veut dire qu'il n'y a pas d'erreur
+            // donc on peut ajouter à la DB !
+
+            // on hâche le mot de passe reçu avec l'algo bcrypt
+            // juste avant de le sauvegarder
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $user->setPassword($hashedPassword);
 
-            // Tenter d'insérer l'utilisateur dans la base de données
+            // on dit à cet objet de s'insérer dans la base !
+            // save() renvoit true si l'ajout a fonctionné, false sinon
             $success = $user->insert();
+            // dump($category);
 
-            // essayez d'insérer l'utilisateur dans la base de données
-            $success = $user->insert(); // supposez que vous ayez une méthode `insert` dans votre modèle pour effectuer l'insertion
-
-            // vérifiez si l'insertion a réussi
             if ($success) {
-                // si l'insertion a réussi, redirigez l'utilisateur vers la page d'accueil
+                // @see https://www.php.net/manual/fr/function.header.php
+                // on va utiliser le mot-clé "global" pour accéder au routeur
+                // car on préfère générer la route que de l'écrire en dur
+                // @todo trouver une solution plus orientée POO pour accéder à ce routeur
+                // /!\ ne pas afficher quoique ce soit avant (echo, dump(), etc.)
                 header('Location:' . $_SERVER['BASE_URI'] . '/livres');
                 exit;
             } else {
-                // si l'insertion a échoué, ajoutez un message d'erreur et réaffichez le formulaire
-                $errorList[] = "Erreur lors de l'insertion dans la base de données.";
+                // ça n'a pas fonctionné, on met un message d'erreur, et le script continue après le if
+                $errorList[] = "Erreur lors de l'ajout.";
+                // si on arrive là, c'est qu'il y a eu une erreur
+                // on réaffiche le formulaire, mais pré-rempli avec les (mauvaises) données saisies dans $_POST
+
+                // on affiche à nouveau de form d'ajout, mais avec les erreurs & les données erronées
+                $this->show('user/add', [
+                    'errorList' => $errorList,
+                    // le form attends un objet pour pré-remplir ses valeurs
+                    'user' => $user,
+                ]);
             }
         }
-        // si on arrive là, c'est qu'il y a eu une erreur
-        // on réaffiche le formulaire, mais pré-rempli avec les (mauvaises) données saisies dans $_POST
-
-        // on affiche à nouveau de form d'ajout, mais avec les erreurs & les données erronées
-        $this->show('user/add', [
-            'errorList' => $errorList,
-            // le form attends un objet pour pré-remplir ses valeurs
-            'user' => $user,
-        ]);
     }
 }

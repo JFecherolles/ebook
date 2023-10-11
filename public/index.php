@@ -12,7 +12,6 @@ $router = new AltoRouter();
 $router->setBasePath($_SERVER['BASE_URI']);
 
 // on map nos routes
-// Page d'accueil
 $router->map('GET', '/',[
     'action' => 'home',
     'controller' => 'Ebook\Controllers\MainController'
@@ -43,74 +42,35 @@ $router->map('POST', '/supprDb', [
     'controller' => 'Ebook\Controllers\LivreController'
 ], 'suppression');
 
-$router->map(
-    'GET',
-    '/user/login',
-    [
-        'action' => 'login',
-        'controller' => '\Ebook\Controllers\UserController'
-    ],
-    'user-login'
-);
+$router->map('GET', '/user/login', [
+    'action' => 'login',
+    'controller' => '\Ebook\Controllers\UserController'
+], 'user-login');
 
-// user login connect
-$router->map(
-    'POST',
-    '/user/login',
-    [
-        'action' => 'connect',
-        'controller' => '\Ebook\Controllers\UserController', // On indique le FQCN de la classe
-    ],
-    'user-connect'
-);
+$router->map('POST', '/user/login', [
+    'action' => 'connect',
+    'controller' => '\Ebook\Controllers\UserController',
+], 'user-connect');
 
-// user login out
-$router->map(
-    'GET',
-    '/user/logout',
-    [
-        'action' => 'logout',
-        'controller' => '\Ebook\Controllers\UserController'
-    ],
-    'user-logout'
-);
+$router->map('GET', '/user/logout', [
+    'action' => 'logout',
+    'controller' => '\Ebook\Controllers\UserController'
+], 'user-logout');
 
-// user list
-$router->map(
-    'GET',
-    '/user/list',
-    [
-        'action' => 'list',
-        'controller' => '\Ebook\Controllers\UserController', // On indique le FQCN de la classe
-    ],
-    'user-list'
-);
+$router->map('GET', '/user/list', [
+    'action' => 'list',
+    'controller' => '\Ebook\Controllers\UserController',
+], 'user-list');
 
-// user add (affiche le form)
-$router->map(
-    'GET',
-    // URL en GET
-    '/user/add',
-    [
-        'action' => 'add',
-        'controller' => '\Ebook\Controllers\UserController', // On indique le FQCN de la classe
-    ],
-    // nom de route pour générer les URLs via $router->generate('nom-de-la-route')
-    'user-add'
-);
+$router->map('GET', '/user/add', [
+    'action' => 'add',
+    'controller' => '\Ebook\Controllers\UserController',
+], 'user-add');
 
-// user add (traite le form)
-$router->map(
-    'POST',
-    '/user/add',
-    [
-        'action' => 'create',
-        'controller' => '\Ebook\Controllers\UserController', // On indique le FQCN de la classe
-    ],
-    // nom de route pour générer les URLs via $router->generate('nom-de-la-route')
-    'user-create'
-);
-
+$router->map('POST','/user/add', [
+    'action' => 'create',
+    'controller' => '\Ebook\Controllers\UserController', 
+], 'user-create');
 
 // on "match" la requête actuelle avec nos routes enregistrées précédemment
 $match = $router->match();
@@ -129,11 +89,7 @@ if($match) {
     $controller->$methodToCall($match['params']);
 
 } else {
-    // 404, la route existe pas
     $controller = new Ebook\Controllers\ErrorController();
     $controller->error404();
 }
 
-//Fin altorouteur
-
-?>

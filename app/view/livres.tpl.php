@@ -7,8 +7,8 @@
   </section>
 
   <section class="container text-center">
-    <table class="table" id="myTable">
-      <thead>
+    <table class="table table-striped">
+    <thead>
         <tr>
           <th scope="col">Prénom</th>
           <th scope="col">Nom</th>

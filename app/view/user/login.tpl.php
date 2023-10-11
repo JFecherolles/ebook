@@ -12,6 +12,9 @@
             <input type="password" class="form-control" id="password" name="password">
         </div>
         <div>
+
+            <input type="hidden" name="csrf_token" value="<?= $this->generateToken(); ?>">
+
             <button type="submit" class="btn btn-primary">Connexion</button>
             <a href="<?= $router->generate('user-add') ?>" class="btn btn-success">S'inscrire</a>
         </div>
