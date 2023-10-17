@@ -37,7 +37,6 @@ class LivreController extends CoreController
         $viewData['listLivre'] = Livres::findAll();
 
         $this->show('livres', $viewData);
-        //header('Location: index');
 
     }
 

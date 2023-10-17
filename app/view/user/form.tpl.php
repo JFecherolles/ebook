@@ -9,8 +9,6 @@
         <div class="form-text">Doit contenir au moins 8 caractères, une lettre en minuscule/majuscule, au moins un chiffre, au moins un caractère spécial.</div>
     </div>
 
-    <input type="hidden" name="csrf_token" value="<?= $this->generateToken(); ?>">
-
     <button type="submit" class="btn btn-primary mt-5">Valider</button>
     </div>
 </form>

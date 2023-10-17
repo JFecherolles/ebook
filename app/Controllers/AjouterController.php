@@ -6,7 +6,7 @@ use Ebook\Models\Livres;
 
 class AjouterController extends CoreController
 {
-    public function ajouter()
+    public function ajouter($id_user)
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -25,7 +25,7 @@ class AjouterController extends CoreController
             $livre->setTitre($titre);
 
             // Sauvegarder le livre
-            $livre->add(id_user: 1);
+            $livre->add($id_user);
 
             // Rediriger vers la liste des livres
             // header('Location: http://localhost/Ebook/public/');

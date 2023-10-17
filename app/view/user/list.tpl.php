@@ -1,12 +1,11 @@
 <div class="container my-4">
     <a href="<?= $router->generate('user-add'); ?>" class="btn btn-success float-end">Ajouter</a>
-    <h2>Liste des utilisateurs</h2>
+    <h1>Liste des utilisateurs</h1>
     <table class="table table-hover mt-4">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Prénom</th>
-                <th scope="col">Mot de passe</th>
                 
             </tr>
         </thead>
@@ -16,7 +15,6 @@
                 <tr>
                     <th scope="row"><?= $user->getId(); ?></th>
                     <td><?= $user->getEmail(); ?></td>
-                    <td><?= $user->getPassword(); ?></td>
                     
                     <td class="text-end">
                         <a href="<?php // $router->generate('user-edit', ['id' => $user->getId()]); 

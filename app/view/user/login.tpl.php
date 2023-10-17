@@ -1,6 +1,8 @@
 <div class="container my-4">
+    <div class="text-center">
+        <h1>Connexion</h1>
+    </div>
 
-    <h2>Connexion</h2>
 
     <form action="" method="POST" class="mt-5">
         <div class="mb-3">

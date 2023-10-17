@@ -31,10 +31,6 @@ class UserController extends CoreController
 
         // - on va chercher le user via son identifiant
         $appUser = AppUser::findByEmail($email);
-        // dump($appUser);
-
-        
-        // 0fe20a92de57999bfacc69eb5a0c4f7776d816f659e4c6199842a43c24de939c
 
         // - cas 1 : user non trouvé => erreur sur le form
         if ($appUser === false) {
@@ -114,7 +110,6 @@ class UserController extends CoreController
      */
     public function create()
     {
-        // dd($_POST);
 
         // on récupère les données dans des variables
         // on utilise l'opérateur de coalescence nulle ??
@@ -125,15 +120,10 @@ class UserController extends CoreController
 
         // on créé un nouvel objet User prêt à être sauvegardé
         $user = new AppUser();
-        // dump($category);
 
         // on alimente cet objet avec les donneés de la requête (on remplit ses propriétés)
         $user->setEmail($email);
         $user->setPassword($password);
-        // dd($user);
-
-        // VALIDATION DES DONNÉES
-        // @see https://github.com/O-clock-Nazca/S06-E02-atelier-ajout-DB/blob/master/mega_bonus.md
 
         // on créé un tableau pour y ajouter les erreurs éventuelles
         $errorList = [];
@@ -176,7 +166,6 @@ class UserController extends CoreController
             // on dit à cet objet de s'insérer dans la base !
             // save() renvoit true si l'ajout a fonctionné, false sinon
             $success = $user->insert();
-            // dump($category);
 
             if ($success) {
                 // @see https://www.php.net/manual/fr/function.header.php
@@ -184,7 +173,7 @@ class UserController extends CoreController
                 // car on préfère générer la route que de l'écrire en dur
                 // @todo trouver une solution plus orientée POO pour accéder à ce routeur
                 // /!\ ne pas afficher quoique ce soit avant (echo, dump(), etc.)
-                header('Location:' . $_SERVER['BASE_URI'] . '/livres');
+                header('Location:' . $_SERVER['BASE_URI'] . '/user/login');
                 exit;
             } else {
                 // ça n'a pas fonctionné, on met un message d'erreur, et le script continue après le if
